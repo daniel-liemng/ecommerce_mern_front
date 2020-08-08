@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 
 import Layout from "../core/Layout";
 
-import { signin, authenticate } from "../auth";
+import { signin, authenticate, isAuthenticated } from "../auth";
 
 const Signin = () => {
   // state
@@ -16,6 +16,7 @@ const Signin = () => {
   });
 
   const { email, password, error, loading, redirectToReferer } = values;
+  const { user } = isAuthenticated();
 
   // function
   const handleChange = (name) => (e) => {
@@ -81,7 +82,11 @@ const Signin = () => {
 
   const redirectUser = () => {
     if (redirectToReferer) {
-      return <Redirect to='/' />;
+      if (user && user.role === 1) {
+        return <Redirect to='/admin/dashboard' />;
+      } else {
+        return <Redirect to='/user/dashboard' />;
+      }
     }
   };
   // form
@@ -123,7 +128,7 @@ const Signin = () => {
       {showLoading()}
       {signupForm()}
       {redirectUser()}
-      {JSON.stringify(values)}
+      {/* {JSON.stringify(values)} */}
     </Layout>
   );
 };
