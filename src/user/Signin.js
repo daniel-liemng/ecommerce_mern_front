@@ -88,6 +88,11 @@ const Signin = () => {
         return <Redirect to='/user/dashboard' />;
       }
     }
+
+    // if user is auth, go to admin, redirect to Home, not to Sign in again
+    if (isAuthenticated()) {
+      return <Redirect to='/' />;
+    }
   };
   // form
   const signupForm = () => (
