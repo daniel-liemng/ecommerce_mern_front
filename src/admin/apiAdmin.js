@@ -33,7 +33,7 @@ export const createProduct = (userId, token, product) => {
     .catch((err) => console.log(err));
 };
 
-// Get Category
+// Get Categories
 export const getCategories = () => {
   return fetch(`${API}/categories`, {
     method: "GET",
